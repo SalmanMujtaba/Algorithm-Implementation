@@ -1,4 +1,4 @@
-//Quick Sort after taking inoput from a semi colon separated file 
+//Quick Sort Algorithm after taking input from a semi colon separated file 
 
 
 import java.io.File;
