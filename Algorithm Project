@@ -1,1 +1,898 @@
+/* Implementation of BFS and DFS on a dataset (dolphins.gml). (menu driven program)
+Package name: algoproject
+Files:
+
+DFS, Edge, Graph, Vertex, Implementing Queues
+
+*/
+
+
+package algoproject;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class DFS {
+	
+	int[] prev;
+	int source;
+	boolean[] visited ;
+	int destination;
+	boolean path = false;
+//	Queue<Integer> q = new LinkedList<Integer>();
+//	Vertex v;
+private int V; // No. of vertices
+
+	
+	// Array of lists for Adjacency List Representation
+	private LinkedList<Integer> adj[];
+	
+	DFS(int v)
+	{
+		visited = new boolean[v];
+		source = 0;
+		 destination = 5;
+	//	 v = new Vertex();	
+	//	 v.openFile();
+		 V = v;
+			adj = new LinkedList[V];
+			for (int i=0; i<V; ++i)
+				adj[i] = new LinkedList();
+			prev = new int[V];
+	}
+	
+
+	
+	 LinkedList<Integer>[] getAdjacencyList()
+	{
+		return adj;
+	}
+
+
+	
+
+		void addEdge(int v, int w)
+		{
+			adj[v].add(w); // Add w to v's list.
+			adj[w].add(v);
+		}
+	
+	void DFS1()
+	{
+		System.out.println("in DFS1");
+	//	System.out.println(destination);
+	//	boolean[] visited = new boolean[5];
+		boolean visited[] = new boolean[V];
+
+		// Call the recursive helper function to print DFS traversal
+		// starting from all vertices one by one
+		int count = 0;
+		for (int i=0; i<V; ++i)
+			if (visited[i] == false)
+			{count++;
+			   //	System.out.println("component"+count);
+			   DFSHelper(i, visited);
+			   	System.out.println();
+			}
+				
+				/*int[] b =DFSHelper(source, visited);
+				System.out.println("back in here");
+				System.out.println("length"+b.length);
+				for(int i = 0;i<b.length;i++)
+				{
+					System.out.println("i "+i);
+				}
+		return b;*/
+				
+	}
+		int DFSHelper(int source, boolean[] visited)
+		{
+			
+			//System.out.println(prev.length);
+		//	visited = new boolean[5];
+			visited[source] = true;
+			System.out.print(source+" ");
+			//prev = new int[5];
+			//prev[source] = -1;
+		//	int poppedElement;
+			Iterator<Integer> i;
+			
+		
+				i =  getAdjacencyList()[source].listIterator();
+			
+				while (i.hasNext())
+				{
+					int n = i.next();
+					if (!visited[n])
+					{
+						DFSHelper(n,visited);
+				}
+				}
+			
+			return -1;
+			
+		}
+	
+	
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+		DFS d = new DFS(11);
+		d.addEdge(0, 1);
+		d.addEdge(0, 2);
+		d.addEdge(1, 2);
+		d.addEdge(2, 0);
+		d.addEdge(2, 3);
+		d.addEdge(3, 3);
+		
+		d.addEdge(4, 5);
+		d.addEdge(6, 7);
+
+		d.addEdge(7, 8);
+		d.addEdge(8, 9);
+		d.addEdge(5, 10);
+		d.DFS1();
+		//Iterator<Integer> i;
+		
+		
+		/*for(int l = 0;l<6;l++){
+			
+			
+			Iterator<Integer> i =  d.getAdjacencyList()[l].listIterator();
+			while (i.hasNext())
+			{
+				int n = i.next();	
+			System.out.println("node"+l+": list->"+n);
+			}
+		}
+		
+		
+		//boolean[] visited = new boolean[5];
+		d.DFS1(0);
+		
+		int currentV = 5;
+		if(d.path ==true)
+		{
+			while (d.prev[currentV]!= -1) {
+				
+			System.out.print(currentV+" "+" <-");
+			currentV = d.prev[currentV];
+			}
+			System.out.println(0);
+		}
+		else 
+		{
+			System.out.println("path does not exist");
+		}
+	/*	int[] a = d.DFS1(0);
+		int currentV = 4;
+		if(a==null)
+		{
+			System.out.println("no path");
+		}
+		else
+		{
+			while (a[currentV]!= -1) {
+				
+			System.out.print(currentV+" "+" <-");
+			currentV = a[currentV];
+			}
+		}
+		
+		
+	/*	String pp;
+		Scanner s = new Scanner(System.in);
+		int source;
+		int destination = 0;
+		pp=s.nextLine();
+		/*while(s.hasNext())
+		{
+			pp=s.next();
+			if(pp.toLowerCase().equals("bfs"))
+			{
+				
+				System.out.println(pp);
+				
+				source=Integer.parseInt();
+				destination = Integer.parseInt(s.next());
+				
+				
+			}
+				
+			}
+		
+		String p2 = pp.substring(4);
+		System.out.println(p2);
+		char[] numbers = p2.toCharArray();
+		System.out.println(numbers[0]);
+		
+		
+		System.out.println(Integer.parseInt(pp.substring(4, 6).trim()));
+		try{
+				System.out.println(Integer.parseInt(pp.substring(7,9).trim()));
+		}
+		catch(IndexOutOfBoundsException a)
+		{	
+			try{
+			System.out.println(Integer.parseInt(pp.substring(7,8).trim()));
+			
+		}
+		catch(IndexOutOfBoundsException b)
+			{
+			System.out.println(Integer.parseInt(pp.substring(6,7).trim()));
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println("bhag jab");
+		}
+		*/
+				}
+
+}
+
+
+
+
+
+
+package algoproject;
+
+import java.util.LinkedList;
+
+public class Edge {
+
+	private int V; // No. of vertices
+
+	
+	// Array of lists for Adjacency List Representation
+	private LinkedList<Integer> adj[];
+	
+	 LinkedList<Integer>[] getAdjacencyList()
+	{
+		return adj;
+	}
+
+
+	Edge(int v)
+	{
+		V = v;
+		adj = new LinkedList[v];
+		for (int i=0; i<v; ++i)
+			adj[i] = new LinkedList();
+	}
+	
+
+		void addEdge(int v, int w)
+		{
+			adj[v].add(w); // Add w to v's list.
+			adj[w].add(v);
+		}
+	
+}
+
+
+
+
+
+package algoproject;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Scanner;
+
+
+
+
+public class Graph {
+	
+	//int[] prev;
+	int source;
+	int destination;
+	Queue<Integer> q = new LinkedList<Integer>();
+	static Vertex v;
+	//Edge e;
+	
+	Graph()
+	
+	{
+	
+	 source = 0;
+	 destination = 0;
+	// v = new Vertex();	
+	 //v.openFile();
+	 //e = new Edge(numberOfNodes);
+	
+	}
+	
+	void DFS1(int noOfNodes)
+	{
+		boolean visited[] = new boolean[noOfNodes];
+
+		System.out.println("All the Strongly Connected Components for the dolphins.gml");
+		int count = 0;
+		for (int i=0; i<noOfNodes; ++i)
+			if (visited[i] == false)
+			{count++;
+			   //	System.out.println("component"+count);
+			   DFSHelper(i, visited);
+			   	System.out.println();
+			}
+				
+	}
+	
+	void DFSHelper(int source, boolean[] visited)
+	{
+		
+		
+		visited[source] = true;
+		System.out.print(source+" ");
+	
+		Iterator<Integer> i;
+		
+	
+			i =   v.getEdge().getAdjacencyList()[source].listIterator();
+					
+		
+			while (i.hasNext())
+			{
+				int n = i.next();
+				if (!visited[n])
+				{
+					DFSHelper(n,visited);
+			}
+			}
+		
+		
+	}
+
+
+
+
+	
+	
+	int[] BFS(int source, int destination)
+	{
+		
+		
+		boolean[] visited = new boolean[v.getNumberOfNodes()];
+		visited[source] = true;
+		int[] prev = new int[v.getNumberOfNodes()];
+		prev[source] = -1;
+		int poppedElement;
+		Iterator<Integer> i;
+		
+		q.add(source);
+		while(q.peek()!=null)
+		{
+			
+			poppedElement = q.poll();
+			
+			i =  v.getEdge().getAdjacencyList()[poppedElement].listIterator();
+			while (i.hasNext())
+			{
+				int n = i.next();	
+			
+				if(n==destination)
+				{
+					prev[destination]=poppedElement;
+					return prev;
+				}
+				else if(!visited[n])
+				{
+					visited[n]=true;
+					q.add(n);
+					prev[n]=poppedElement;
+				}
+			}
+			
+		}
+		
+		return null;
+		
+	}
+
+	int getSource()
+	{
+		if(source < 0 || source>61)
+			return -1;
+		else 
+			//System.out.println("source"+source);
+			return source;
+	}
+	
+	int getDestination()
+	{	
+		if(destination>61 || destination<0)
+			return -1;
+		else
+			return destination;
+	}
+/*	Edge getEdge()
+	{
+		return e;
+	}
+	*/
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+		
+		
+		Graph g = new Graph();
+	
+		String input = null;
+		Scanner in = new Scanner(System.in);
+	
+		
+		int sourceLocal = 0;
+		int destinationLocal = 0;
+		//System.out.println("dalo :");
+
+		//System.out.println();
+		System.out.println("****************************************************************");
+		System.out.println("            Menu");
+		System.out.println("1) Press 1 to load graph");
+		System.out.println("2) Press 2 to get shortest path between two nodes");
+		//System.out.println("3) shortest path between the two nodes");
+		System.out.println("3) Press 3 to get all the strongly connected component list");
+		System.out.println("4) Press 4 to get the adjacency list of all nodes");
+		System.out.println("5) Press 5 to get the number of nodes in the graph");
+		System.out.println("6) Press 6 to quit");
+		System.out.println("****************************************************************");
+		
+		do
+		{	
+			
+			System.out.println("Enter Choice: ");
+			input=in.nextLine();
+			if(input.startsWith("BFS"))
+			{
+				
+				sourceLocal = Integer.parseInt(input.substring(4, 6));
+				destinationLocal = Integer.parseInt(input.substring(7, 9));
+				g.source = sourceLocal;
+				//System.out.println(g.source);
+				g.destination = destinationLocal;
+				input = "bfs";
+				
+			}
+			
+			
+			
+			
+			switch(input.toLowerCase())
+			{
+			
+			case "1":
+				System.out.println("The graph has been successfully created and stored");
+				v = new Vertex();	
+				 v.openFile();
+				break;
+				
+			case "2":
+				System.out.println("Calculated using BFS algorithm");
+				Scanner s = new Scanner(System.in);
+				System.out.println("Enter Source: ");
+				g.source = Integer.parseInt(s.next());
+				System.out.println("Enter Destination: ");
+				g.destination = Integer.parseInt(s.next());
+				
+				if(g.getSource() ==-1 || g.getDestination()==-1 || g.source ==g.destination)
+				{
+					//System.out.println("source"+g.getSource());
+					System.out.println("You have not entered the right set of nodes");
+					
+				}
+				else
+					
+					{
+					int[] bfsOutput = g.BFS(g.source, g.destination);
+					
+					if(bfsOutput==null)
+					{
+						System.out.println("Sorry no path exists");
+						
+					}
+					else
+					{
+						int currentV = g.destination;
+						int count =0;
+						//System.out.println("BFS Output");
+						while (bfsOutput[currentV]!= -1) {
+							count++;
+						System.out.print("id("+currentV+")"+" label("+v.getHashMap().get(currentV)+")"+" <--");
+						currentV = bfsOutput[currentV];
+						}
+						
+					System.out.println("id("+g.source+")"+" label("+v.getHashMap().get(g.source)+")"); // or add to a list
+					System.out.println("steps: "+(count+1));
+					}
+					
+					}
+				
+				break;
+					
+				
+			
+			
+			case "6":
+				System.out.println("Thank you");
+				break;
+			case "3":
+				
+			
+				g.DFS1(v.getNumberOfNodes());
+				
+			break;
+		
+			case "5":
+			
+				System.out.println("number of nodes : "+v.getNumberOfNodes());
+				
+				break;
+			case "4":
+				
+				for(int l = 0;l<v.getNumberOfNodes();l++){
+					
+					
+					Iterator<Integer> i =  v.getEdge().getAdjacencyList()[l].listIterator();
+					System.out.println();
+					System.out.print("Adjacency list for node "+"name:"+(v.getHashMap().get(l))+" id:"+l);
+					System.out.println();
+					
+					while (i.hasNext())
+					{
+						int n = i.next();	
+					System.out.print(n+" ");
+					}
+			}
+				break;
+					
+			default:
+				System.out.println("You seem to have given a wrong input");
+				break;
+			}	
+			
+			
+		}while(!input.equals("quit"));
+	
+	        
+	      
+	}
+}
+
+
+
+package algoproject;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class ImoplementingQueues {
+	
+	int source=0;
+	Edge g = new Edge(62);
+	int target = 0;
+	  void openFile() throws FileNotFoundException
+	    {
+	    	String inputFileName = "dolphins.gml";
+			Scanner scanner = new Scanner(inputFileName);
+	    	System.out.flush();
+	    	String filename = scanner.nextLine();
+	    	File text = new File(filename);
+	    	
+	    	
+	    	scanner.close();
+	    	
+	    	if(!text.exists())
+	    	{
+	    		System.out.println("Sorry the file does not exists");
+	    		System.exit(0);
+	    	}
+	    	Scanner scnr = new Scanner(text);
+	    	Scanner scnr2 = new Scanner(text);
+	    	
+	    	List<Integer> vertices = new ArrayList<Integer>();
+	    	List<String> label = new ArrayList<String>();
+	    
+	    	String s =null;
+	     /*	while(scnr.hasNext())
+	    	{
+	    		if(scnr.next().equals("label"))
+	    		{
+	    		
+	    			s=scnr.next().replace("\"", "");
+	    			label.add(s);
+		    	//	System.out.println(s);
+	    	
+	    		}
+
+	    	}*/
+	    	
+	    	String edges = null;
+	    	
+	    	while(scnr.hasNext())
+	    	{
+	    		edges = scnr.next();
+	    		if(edges.equals("source"))
+	    		{
+	    			
+	    			source=Integer.parseInt(scnr.next());
+	    			System.out.println("source "+source);
+	    		}
+	    		else 	if(edges.equals("target"))
+	    		{
+	    			target = Integer.parseInt(scnr.next());
+	    			System.out.println("target "+target);
+	    			g.addEdge(source, target);
+	    			
+	    		}
+	    		
+	    	}
+	    	scnr.close();
+	    	
+	    	int n = 0;
+	    	
+	    	String e=null;
+	    	while(scnr2.hasNext())
+	    	{
+	    		e=scnr2.next();
+	    		
+	    		if(e.equals("id"))
+	    		{
+	    		
+		    		vertices.add(Integer.parseInt(scnr2.next()));
+
+	    			    		}
+	    		else if(e.equals("label"))
+	    		{
+	    			
+	    	    		
+		    			s=scnr2.next().replace("\"", "");
+		    			label.add(s);
+			    	
+	    		}
+	    	}
+	    	scnr2.close();
+	    	//System.out.println(vertices.size());
+	    	//System.out.println(label.size());
+	    	
+	    	HashMap<Integer, String> map = new HashMap<Integer, String>();
+	    	  for(int i =0;i<vertices.size();i++)
+	    	  {
+	    		  map.put(vertices.get(i),label.get(i) );
+	    	  			}
+	    	  
+	    	      for(int i : map.keySet()){
+	    	    	 
+	     //  	System.out.println(i+"  "+map.get(i));
+	}
+	    	      
+	    	     
+	    	  	for(int l = 0;l<vertices.size();l++){
+	    			
+	    			
+	    			Iterator<Integer> i =  g.getAdjacencyList()[l].listIterator();
+	    			while (i.hasNext())
+	    			{
+	    				int p = i.next();	
+	    			System.out.println("node"+l+": list->"+p);
+	    			}
+	    	  	}
+	    	
+	    }
+	    
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		String s = "bfs 50 60";
+		int a = Integer.parseInt(s.substring(4,6));
+		System.out.println(a);
+		System.out.println(Integer.parseInt(s.substring(7,9)));
+	/*	ImoplementingQueues p = new ImoplementingQueues();
+		try {
+			p.openFile();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+}*/
+	}
+}
+
+
+
+
+
+package algoproject;
+
+import java.io.*;
+import java.util.*;
+
+
+class Vertex
+{
+	int source;
+	int target;
+	String edges;
+	String node;
+	List<Integer> vertices;
+	List<String> label;
+	Scanner scanEdges; 
+	Scanner scanNodes; 
+	Edge e;
+	int numberOfNodes;
+	String inputFileName;
+	HashMap<Integer, String> map;
+	File text;
+	
+	Vertex()
+	{
+		vertices = new ArrayList<Integer>();
+		label = new ArrayList<String>();
+		edges = null;
+		source = 0;
+		target = 0;
+		numberOfNodes = 0;
+		inputFileName = "dolphins.gml";
+		node = null; 
+		map = new HashMap<Integer, String>();
+		
+	}
+	
+	void openFile()
+	{
+		//String inputFileName = "dolphins.gml";
+		Scanner scanner = new Scanner(inputFileName);
+    	System.out.flush();
+    	text = new File(inputFileName);
+    	
+    	if(!text.exists())
+    	{
+    		System.out.println("Sorry the file does not exists");
+    		System.exit(0);
+    	}
+    	
+    	scanFile();
+    	
+	}
+	
+	void scanFile()
+	{
+		text = new File(inputFileName);;
+    	try {
+			scanEdges = new Scanner(text);
+			scanNodes = new Scanner(text);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    
+    	
+    	while(scanNodes.hasNext())
+    	{
+    		node=scanNodes.next();
+    		
+    		if(node.equals("id"))
+    		{
+    		
+    				vertices.add(Integer.parseInt(scanNodes.next()));
+
+    		}
+    		else if(node.equals("label"))
+    		{
+    			
+    	    		
+	    			node=scanNodes.next().replace("\"", "");
+	    			label.add(node);
+		    	
+    		}
+    	}
+    	
+    	setNumberOfNodes(vertices.size());
+    	
+    	
+    	edges = null;
+    	
+        e = new Edge(getNumberOfNodes());	
+   
+        while(scanEdges.hasNext())
+    	{
+    		edges = scanEdges.next();
+    		if(edges.equals("source"))
+    		{
+    			
+    			source=Integer.parseInt(scanEdges.next());
+    			//System.out.println("source "+source);
+    		}
+    		else 	if(edges.equals("target"))
+    		{
+    			target = Integer.parseInt(scanEdges.next());
+    			//System.out.println("target "+target);
+    			e.addEdge(source, target);
+    			
+    		}
+    		
+    	}
+        
+    	createHashMap();
+    	
+    	closeFiles();
+    	
+	}
+	
+	void createHashMap()
+	{
+		for(int i=0;i<getNumberOfNodes();i++)
+		{
+			map.put(i, label.get(i));
+		}
+	}
+	
+	HashMap<Integer, String> getHashMap()
+	{
+		return map;
+	}
+	
+	void closeFiles()
+	{
+		scanEdges.close();
+    	scanNodes.close();
+	}
+	
+	void setNumberOfNodes(int nodes)
+	{
+		numberOfNodes = nodes;
+	}
+	
+
+	int getNumberOfNodes()
+	{
+		return numberOfNodes;
+	}
+	
+	Edge getEdge()
+	{
+		return e;
+	}
+	
+	public static void main(String[] args){
+		Vertex v = new Vertex();
+		v.scanFile();
+		System.out.println(v.getNumberOfNodes());
+	
+		
+		for(int l = 0;l<v.getNumberOfNodes();l++){
+			
+			
+			Iterator<Integer> i =  v.getEdge().getAdjacencyList()[l].listIterator();
+			while (i.hasNext())
+			{
+				int n = i.next();	
+			System.out.println("node"+l+": list->"+n);
+			}
+	}
+}
+}
+
+
+
 
